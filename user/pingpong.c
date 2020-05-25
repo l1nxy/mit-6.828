@@ -17,7 +17,6 @@ int main()
         buf[n]='\0';
         int pid = getpid();
         printf("process %d get %s",pid,buf);
-
         close(child_fd[0]);
         write(child_fd[1],"pong\n",5);
         exit(0);
