@@ -13,7 +13,6 @@
 
 #define MAXARGS 10
 
-static int isPipe = 0;
 
 struct cmd
 {

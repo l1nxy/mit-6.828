@@ -146,9 +146,10 @@ UPROGS=\
 	$U/_sleep\
 	$U/_uptime\
 	$U/_pingpong\
-	$U/_prime\
+	$U/_primes\
 	$U/_find\
 	$U/_xargs\
+	$U/_prime2\
 
 fs.img: mkfs/mkfs README user/xargstest.sh $(UPROGS)
 	mkfs/mkfs fs.img README user/xargstest.sh $(UPROGS)
