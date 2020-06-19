@@ -198,7 +198,7 @@ int get_token() {
 }
 void panic(char *s)
 {
-    fprintf(2, "%s\n", s);
+    //fprintf(2, "%s\n", s);
     exit(1);
 }
 
