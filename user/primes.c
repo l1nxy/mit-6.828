@@ -16,7 +16,7 @@ top:
     id = fork();
     if (id < 0)
     {
-        exit(0);
+        exit(1);
     }
     if (id == 0)
     {
