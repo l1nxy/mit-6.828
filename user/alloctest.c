@@ -1,7 +1,8 @@
-#include "kernel/param.h"
+
 #include "kernel/types.h"
-#include "kernel/stat.h"
 #include "kernel/riscv.h"
+#include "kernel/param.h"
+#include "kernel/stat.h"
 #include "kernel/fcntl.h"
 #include "kernel/memlayout.h"
 #include "user/user.h"
@@ -13,7 +14,7 @@ test0() {
   int fd;
 
   printf("filetest: start\n");
-  
+
   if(NCHILD*NFD < NFILE) {
     printf("test setup is wrong\n");
     exit(1);
@@ -59,8 +60,8 @@ void test1()
   int tot = 0;
   char buf[1];
   int fds[2];
-  
-  printf("memtest: start\n");  
+
+  printf("memtest: start\n");
   if(pipe(fds) != 0){
     printf("pipe() failed\n");
     exit(1);
@@ -96,9 +97,9 @@ void test1()
   //printf("allocated %d out of %d pages\n", tot, n);
   if(tot < 31950) {
     printf("expected to allocate at least 31950, only got %d\n", tot);
-    printf("memtest: FAILED\n");  
+    printf("memtest: FAILED\n");
   } else {
-    printf("memtest: OK\n");  
+    printf("memtest: OK\n");
   }
 }
 
