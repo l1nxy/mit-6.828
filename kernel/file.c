@@ -39,10 +39,14 @@ struct file *filealloc(void) {
     */
   acquire(&ftable.lock);
   struct file *f = bd_malloc(sizeof(struct file));
-  memset(f,0,sizeof(struct file));
-  f->ref = 1;
+  if (f){
+    memset(f,0,sizeof(struct file));
+    f->ref = 1;
+    release(&ftable.lock);
+    return f;
+  }
   release(&ftable.lock);
-  return f;
+  return 0;
 }
 
 // Increment ref count for file f.
@@ -66,20 +70,7 @@ void fileclose(struct file *f) {
     release(&ftable.lock);
     return;
   }
-
-  if (f->type == FD_PIPE) {
-    pipeclose(f->pipe, f->writable);
-  } else if (f->type == FD_INODE || f->type == FD_DEVICE) {
-    begin_op(f->ip->dev);
-    iput(f->ip);
-    end_op(f->ip->dev);
-  }
-  bd_free(f);
-  release(&ftable.lock);
-  bd_print();
-  return;
-  /*
-  ff = *f;
+  struct file ff = *f;
   f->ref = 0;
   f->type = FD_NONE;
   release(&ftable.lock);
@@ -91,7 +82,8 @@ void fileclose(struct file *f) {
     iput(ff.ip);
     end_op(ff.ip->dev);
   }
-  */
+  
+  bd_free(f);
 }
 
 // Get metadata about file f.
